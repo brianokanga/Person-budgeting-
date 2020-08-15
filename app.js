@@ -1,23 +1,36 @@
+//THE MODULE PATTERN
+
+//Immediately invoked function(IIFE)
+//IIFEs allows data privacy because it creates a new scope not visible from
+// the outer scope
+//the secret of the pattern is that it returns an object containing the function we want to be public
+
 let budgetController = (function () {
+	//implementation
 	let x = 23;
-	let add = function (a) {
+
+	//private method
+	var add = function (a) {
 		return x + a;
 	};
 	return {
+		//public method returns an object
 		publicTest: function (b) {
 			return add(b);
 		},
 	};
 })();
 
-//UI module
+//THE UI CONTROLLER MODULE
 let UIController = (function () {
 	//implimentation
 })();
 
-//app controller
+//THE  CONTROLLER
+//this controller has access the other two
 let controller = (function (budgetCtrl, UICtrl) {
-	var z = budgetCtrl.publicTest(5);
+	//implimentation
+	let z = budgetCtrl.publicTest(20);
 
 	return {
 		anotherPublic: function () {
