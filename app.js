@@ -1,40 +1,64 @@
 //THE MODULE PATTERN
-
-//Immediately invoked function(IIFE)
-//IIFEs allows data privacy because it creates a new scope not visible from
-// the outer scope
-//the secret of the pattern is that it returns an object containing the function we want to be public
-
-let budgetController = (function () {
-	//implementation
-	let x = 23;
-
-	//private method
-	var add = function (a) {
-		return x + a;
-	};
-	return {
-		//public method returns an object
-		publicTest: function (b) {
-			return add(b);
-		},
-	};
-})();
+let budgetController = (function () {}) ();
 
 //THE UI CONTROLLER MODULE
 let UIController = (function () {
-	//implimentation
-})();
+  let DOMstrings = {
+    inputType: '.add__type',
+    inputDescription: '.add__description',
+    inputValue: '.add__value',
+    inputBtn: '.add__btn',
+  };
 
-//THE  CONTROLLER
-//this controller has access the other two
+  return {
+    getInput: function () {
+      return {
+        type: document.querySelector (DOMstrings.inputType).value,
+        description: document.querySelector (DOMstrings.inputDescription).value,
+        value: document.querySelector (DOMstrings.inputValue).value,
+      };
+    },
+
+    getDOMstrings: function () {
+      return DOMstrings;
+    },
+  };
+}) ();
+
+//THE GLOBAL CONTROLLER
 let controller = (function (budgetCtrl, UICtrl) {
-	//implimentation
-	let z = budgetCtrl.publicTest(20);
+  let DOM = UICtrl.getDOMstrings ();
 
-	return {
-		anotherPublic: function () {
-			console.log(z);
-		},
-	};
-})(budgetController, UIController);
+  let setupEventListeners = function () {
+    //Add button event
+    document
+      .querySelector (DOM.inputBtn)
+      .addEventListener ('click', ctrlAddItem);
+
+    //keypress event
+    document.addEventListener ('keypress', function (event) {
+      if (event.keyCode === 13 || event.which === 13) {
+        ctrlAddItem ();
+      }
+    });
+  };
+
+  let ctrlAddItem = function () {
+    //1.Get the filed input data
+    let input = UICtrl.getInput ();
+
+    //2.Add the item to the budget controller
+    //3. Add the item to the UI
+    //4. Calculate the budget
+    //5. Display the budget on thess UI
+  };
+
+  return {
+    init: function () {
+      console.log ('App has started');
+      setupEventListeners ();
+    },
+  };
+}) (budgetController, UIController);
+
+controller.init ();
