@@ -1,5 +1,31 @@
 //THE MODULE PATTERN
-let budgetController = (function () {}) ();
+let budgetController = (function () {
+  //expenses function constructor
+  let Expense = function (id, description, value) {
+    this.id = id;
+    this.description = description;
+    this.value = value;
+  };
+
+  //Income function constructor
+  let Income = function (id, description, value) {
+    this.id = id;
+    this.description = description;
+    this.value = value;
+  };
+
+  //Data structure for the budget control
+  let data = {
+    allItems: {
+      exp: [],
+      inc: [],
+    },
+    totals: {
+      exp: 0,
+      inc: 0,
+    },
+  };
+}) ();
 
 //THE UI CONTROLLER MODULE
 let UIController = (function () {
